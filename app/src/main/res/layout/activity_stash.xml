@@ -6,31 +6,35 @@
     android:layout_height="match_parent"
     tools:context=".stash.StashActivity"
     >
-  <LinearLayout
-      android:id="@+id/main_conatiner"
+  <FrameLayout
+      android:id="@+id/containerOne"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:orientation="horizontal"
-      >
-    <Button
-        android:id="@+id/expandButton"
-        android:layout_width="100dp"
-        android:layout_margin="16dp"
-        android:text="1"
-        android:layout_height="wrap_content"/>
-    <Button
-        android:id="@+id/expandButton2"
-        android:layout_width="100dp"
-        android:text="2"
-        android:layout_margin="16dp"
-        android:layout_height="wrap_content"/>
-    <Button
-        android:id="@+id/expandButton3"
-        android:layout_width="100dp"
-        android:text="3"
-        android:layout_margin="16dp"
-        android:layout_height="wrap_content"/>
-  </LinearLayout>
+      android:layout_height="match_parent"/>
+<!--  <LinearLayout-->
+<!--      android:id="@+id/main_container"-->
+<!--      android:layout_width="match_parent"-->
+<!--      android:layout_height="match_parent"-->
+<!--      android:orientation="horizontal"-->
+<!--      >-->
+<!--    <Button-->
+<!--        android:id="@+id/expandButton"-->
+<!--        android:layout_width="100dp"-->
+<!--        android:layout_margin="16dp"-->
+<!--        android:text="1"-->
+<!--        android:layout_height="wrap_content"/>-->
+<!--    <Button-->
+<!--        android:id="@+id/expandButton2"-->
+<!--        android:layout_width="100dp"-->
+<!--        android:text="2"-->
+<!--        android:layout_margin="16dp"-->
+<!--        android:layout_height="wrap_content"/>-->
+<!--    <Button-->
+<!--        android:id="@+id/expandButton3"-->
+<!--        android:layout_width="100dp"-->
+<!--        android:text="3"-->
+<!--        android:layout_margin="16dp"-->
+<!--        android:layout_height="wrap_content"/>-->
+<!--  </LinearLayout>-->
   <FrameLayout
       android:id="@+id/container_two"
       android:layout_width="match_parent"
