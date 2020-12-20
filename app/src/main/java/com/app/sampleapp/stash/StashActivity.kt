@@ -1,9 +1,14 @@
 package com.app.sampleapp.stash
 
 import android.os.Bundle
-import android.widget.FrameLayout
+import android.view.Gravity
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.transition.Fade
+import androidx.transition.Slide
+import androidx.transition.Transition
+import androidx.transition.TransitionManager
 import com.app.sampleapp.R
 import com.app.sampleapp.databinding.ActivityStashBinding
 import com.app.sampleapp.stash.model.ScreenDataModel
@@ -11,42 +16,17 @@ import com.app.sampleapp.stash.utils.Constants.SCREEN_BG
 import com.app.sampleapp.stash.utils.Constants.SCREEN_NUMBER
 import com.app.sampleapp.stash.utils.FragmentFactory
 import com.app.sampleapp.stash.vm.StashVM
-import com.google.android.material.bottomsheet.BottomSheetBehavior
+
 
 class StashActivity : AppCompatActivity() {
 
     private val viewModel by viewModels<StashVM>()
     private lateinit var binding: ActivityStashBinding
-    private val bottomSheetBehavior2: BottomSheetBehavior<FrameLayout> by lazy {
-        BottomSheetBehavior.from(binding.containerTwo)
-    }
-    private val bottomSheetBehavior3: BottomSheetBehavior<FrameLayout> by lazy {
-        BottomSheetBehavior.from(binding.containerThree)
-    }
-    private val bottomSheetBehavior4: BottomSheetBehavior<FrameLayout> by lazy {
-        BottomSheetBehavior.from(binding.containerFour)
-    }
-
     private val maxScreens = 3
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityStashBinding.inflate(layoutInflater)
-
-        bottomSheetBehavior2.isHideable = true
-        bottomSheetBehavior2.peekHeight = 0
-        bottomSheetBehavior2.isDraggable = false
-
-        bottomSheetBehavior3.isHideable = true
-        bottomSheetBehavior3.peekHeight = 0
-        bottomSheetBehavior3.isDraggable = false
-
-
-        bottomSheetBehavior4.isHideable = true
-        bottomSheetBehavior4.peekHeight = 0
-        bottomSheetBehavior4.isDraggable = false
-
-
         viewModel.expandNextScreen(
             ScreenDataModel(
                 0,
@@ -69,21 +49,21 @@ class StashActivity : AppCompatActivity() {
                         R.id.container_two,
                         FragmentFactory.getFragment(screenData.nextScreenTag, screenData.bundle)
                     ).commit()
-                    bottomSheetBehavior2.state = BottomSheetBehavior.STATE_EXPANDED
+                    toggle(binding.containerTwo, true)
                 }
                 2 -> {
                     supportFragmentManager.beginTransaction().replace(
                         R.id.container_three,
                         FragmentFactory.getFragment(screenData.nextScreenTag, screenData.bundle)
                     ).commit()
-                    bottomSheetBehavior3.state = BottomSheetBehavior.STATE_EXPANDED
+                    toggle(binding.containerThree, true)
                 }
                 3 -> {
                     supportFragmentManager.beginTransaction().replace(
                         R.id.container_four,
                         FragmentFactory.getFragment(screenData.nextScreenTag, screenData.bundle)
                     ).commit()
-                    bottomSheetBehavior4.state = BottomSheetBehavior.STATE_EXPANDED
+                    toggle(binding.containerFour, true)
                 }
                 else -> {
                     //return result from here
@@ -95,19 +75,30 @@ class StashActivity : AppCompatActivity() {
         viewModel.destroyState.observe(this, { screenPosition ->
             var currentScreenPosition = screenPosition
             while (currentScreenPosition <= maxScreens) {
-                if (currentScreenPosition == 0) {
+                when (currentScreenPosition) {
+                    1 -> {
+                        toggle(binding.containerTwo, false)
+                    }
+                    2 -> {
+                        toggle(binding.containerThree, false)
 
-                } else if (currentScreenPosition == 1) {
-                    bottomSheetBehavior2.state = BottomSheetBehavior.STATE_COLLAPSED
-                } else if (currentScreenPosition == 2) {
-                    bottomSheetBehavior3.state = BottomSheetBehavior.STATE_COLLAPSED
+                    }
+                    3 -> {
+                        toggle(binding.containerFour, false)
 
-                } else if (currentScreenPosition == 3) {
-                    bottomSheetBehavior4.state = BottomSheetBehavior.STATE_COLLAPSED
+                    }
                 }
                 currentScreenPosition++;
             }
         })
         setContentView(binding.root)
+    }
+
+    private fun toggle(view: View, show: Boolean) {
+        val transition: Transition = Slide(Gravity.BOTTOM)
+        transition.duration = 300
+        transition.addTarget(view)
+        TransitionManager.beginDelayedTransition(binding.root, transition)
+        view.visibility = if (show) View.VISIBLE else View.GONE
     }
 }

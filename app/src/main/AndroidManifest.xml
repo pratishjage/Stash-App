@@ -9,10 +9,14 @@
       android:roundIcon="@mipmap/ic_launcher_round"
       android:supportsRtl="true"
       android:theme="@style/Theme.SampleApp">
-    <activity android:name=".stash.StashActivity">
+    <activity android:name=".stash.StashActivity"
+        android:screenOrientation="portrait"
+        >
 
     </activity>
-    <activity android:name=".MainActivity">
+    <activity android:name=".MainActivity"
+        android:screenOrientation="portrait"
+        >
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
 
