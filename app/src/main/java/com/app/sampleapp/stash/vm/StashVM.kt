@@ -1,7 +1,9 @@
 package com.app.sampleapp.stash.vm
 
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ReportFragment
 import androidx.lifecycle.ViewModel
 import com.app.sampleapp.stash.model.ScreenDataModel
 

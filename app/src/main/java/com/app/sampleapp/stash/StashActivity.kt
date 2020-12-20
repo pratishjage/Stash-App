@@ -25,13 +25,13 @@ class StashActivity : AppCompatActivity() {
 
     private val viewModel by viewModels<StashVM>()
     private lateinit var binding: ActivityStashBinding
-    private var MAX_SCREENS: Int = 4
+    private var MAXSCREENS: Int = 4
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityStashBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        MAX_SCREENS = intent.getIntExtra(MAXIMUM_STEPS, 4)
+        MAXSCREENS = intent.getIntExtra(MAXIMUM_STEPS, 4)
         val initialScreen = intent.getParcelableExtra<ScreenDataModel>(INITIAL_FRAGMENT)
 
         viewModel.expandNextScreen(
@@ -41,7 +41,7 @@ class StashActivity : AppCompatActivity() {
 
         viewModel.stashState.observe(this, { screenData ->
             when (screenData.currentScreenPosition) {
-                MAX_SCREENS + 1 -> {
+                MAXSCREENS + 1 -> {
                     finish()
                 }
                 FRAGMENT_ONE -> {
@@ -80,7 +80,7 @@ class StashActivity : AppCompatActivity() {
 
         viewModel.destroyState.observe(this, { screenPosition ->
             var currentScreenPosition = screenPosition
-            while (currentScreenPosition <= MAX_SCREENS) {
+            while (currentScreenPosition <= MAXSCREENS) {
                 when (currentScreenPosition) {
                     FRAGMENT_TWO -> {
                         toggle(binding.containerTwo, false)
@@ -90,7 +90,6 @@ class StashActivity : AppCompatActivity() {
                     }
                     FRAGMENT_FOUR -> {
                         toggle(binding.containerFour, false)
-
                     }
                 }
                 currentScreenPosition++;
