@@ -15,7 +15,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 class StashActivity : AppCompatActivity() {
 
-    val viewModel by viewModels<StashVM>()
+    private val viewModel by viewModels<StashVM>()
     private lateinit var binding: ActivityStashBinding
     private val bottomSheetBehavior2: BottomSheetBehavior<FrameLayout> by lazy {
         BottomSheetBehavior.from(binding.containerTwo)
@@ -27,7 +27,7 @@ class StashActivity : AppCompatActivity() {
         BottomSheetBehavior.from(binding.containerFour)
     }
 
-    val maxScreens = 3
+    private val maxScreens = 3
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,16 +35,16 @@ class StashActivity : AppCompatActivity() {
 
         bottomSheetBehavior2.isHideable = true
         bottomSheetBehavior2.peekHeight = 0
-        bottomSheetBehavior2.isDraggable=false
+        bottomSheetBehavior2.isDraggable = false
 
         bottomSheetBehavior3.isHideable = true
         bottomSheetBehavior3.peekHeight = 0
-        bottomSheetBehavior3.isDraggable=false
+        bottomSheetBehavior3.isDraggable = false
 
 
         bottomSheetBehavior4.isHideable = true
         bottomSheetBehavior4.peekHeight = 0
-        bottomSheetBehavior4.isDraggable=false
+        bottomSheetBehavior4.isDraggable = false
 
 
         viewModel.expandNextScreen(
@@ -69,21 +69,25 @@ class StashActivity : AppCompatActivity() {
                         R.id.container_two,
                         FragmentFactory.getFragment(screenData.nextScreenTag, screenData.bundle)
                     ).commit()
-                    bottomSheetBehavior2?.state = BottomSheetBehavior.STATE_EXPANDED
+                    bottomSheetBehavior2.state = BottomSheetBehavior.STATE_EXPANDED
                 }
                 2 -> {
                     supportFragmentManager.beginTransaction().replace(
                         R.id.container_three,
                         FragmentFactory.getFragment(screenData.nextScreenTag, screenData.bundle)
                     ).commit()
-                    bottomSheetBehavior3?.state = BottomSheetBehavior.STATE_EXPANDED
+                    bottomSheetBehavior3.state = BottomSheetBehavior.STATE_EXPANDED
                 }
                 3 -> {
                     supportFragmentManager.beginTransaction().replace(
                         R.id.container_four,
                         FragmentFactory.getFragment(screenData.nextScreenTag, screenData.bundle)
                     ).commit()
-                    bottomSheetBehavior4?.state = BottomSheetBehavior.STATE_EXPANDED
+                    bottomSheetBehavior4.state = BottomSheetBehavior.STATE_EXPANDED
+                }
+                else -> {
+                    //return result from here
+                    finish()
                 }
             }
         })
@@ -94,12 +98,12 @@ class StashActivity : AppCompatActivity() {
                 if (currentScreenPosition == 0) {
 
                 } else if (currentScreenPosition == 1) {
-                    bottomSheetBehavior2?.state = BottomSheetBehavior.STATE_COLLAPSED
+                    bottomSheetBehavior2.state = BottomSheetBehavior.STATE_COLLAPSED
                 } else if (currentScreenPosition == 2) {
-                    bottomSheetBehavior3?.state = BottomSheetBehavior.STATE_COLLAPSED
+                    bottomSheetBehavior3.state = BottomSheetBehavior.STATE_COLLAPSED
 
                 } else if (currentScreenPosition == 3) {
-                    bottomSheetBehavior4?.state = BottomSheetBehavior.STATE_COLLAPSED
+                    bottomSheetBehavior4.state = BottomSheetBehavior.STATE_COLLAPSED
                 }
                 currentScreenPosition++;
             }

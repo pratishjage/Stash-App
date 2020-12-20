@@ -16,16 +16,6 @@ import com.app.sampleapp.stash.utils.Constants.SCREEN_NUMBER
 import com.app.sampleapp.stash.utils.FragmentFactory.YELLOW_FRAGMENT
 import com.app.sampleapp.stash.vm.StashVM
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [ColorFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ColorFragment : StashBaseFragment() {
     private var screenColor: String? = null
     private var screenNumber: Int = 0
@@ -46,10 +36,10 @@ class ColorFragment : StashBaseFragment() {
     private fun showMiniViewOnScreen() {
         binding.tvTitle.text = "I am collapsed $screenColor -----  $screenNumber"
         binding.btnNext.setOnClickListener(null)
-        binding.btnNext.text="Expand Me"
+        binding.btnNext.text = "Expand Me"
         binding.btnNext.setOnClickListener {
             showMaxView()
-           viewModel.destroyNextScreens(screenNumber+1)
+            viewModel.destroyNextScreens(screenNumber + 1)
         }
     }
 
@@ -64,18 +54,15 @@ class ColorFragment : StashBaseFragment() {
     override fun showMaxView() {
         binding.tvTitle.text = screenColor
         binding.btnNext.setOnClickListener(null)
-        binding.btnNext.text="Next Step"
+        binding.btnNext.text = "Next Step"
         binding.btnNext.setOnClickListener {
-            showMiniViewOnScreen()
-            viewModel.expandNextScreen(
-                ScreenDataModel(
-                    screenNumber + 1,
-                    YELLOW_FRAGMENT,
-                    Bundle().apply {
-                        putString(SCREEN_BG, "RED")
-                        putInt(SCREEN_NUMBER, screenNumber + 1)
-                    })
-            )
+            expandNextScreen( ScreenDataModel(
+                screenNumber + 1,
+                YELLOW_FRAGMENT,
+                Bundle().apply {
+                    putString(SCREEN_BG, "RED")
+                    putInt(SCREEN_NUMBER, screenNumber + 1)
+                }))
         }
     }
 
@@ -101,24 +88,6 @@ class ColorFragment : StashBaseFragment() {
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment RedFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ColorFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-
         @JvmStatic
         fun newInstance(bundle: Bundle) =
             ColorFragment().apply {

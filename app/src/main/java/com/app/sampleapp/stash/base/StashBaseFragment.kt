@@ -25,10 +25,11 @@ abstract class StashBaseFragment : Fragment() {
         screenPosition = position;
     }
 
-    private fun expandNextScreen(
+    protected fun expandNextScreen(
         screenDataModel: ScreenDataModel
     ) {
         viewModel.expandNextScreen(screenDataModel)
+        showMiniView()
     }
 
     @CallSuper
