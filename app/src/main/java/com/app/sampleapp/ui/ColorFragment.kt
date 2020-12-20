@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentFactory
 import androidx.fragment.app.activityViewModels
 import com.app.sampleapp.R
 import com.app.sampleapp.databinding.FragmentRedBinding
+import com.app.sampleapp.stash.base.StashBaseFragment
 import com.app.sampleapp.stash.model.ScreenDataModel
 import com.app.sampleapp.stash.utils.Constants.SCREEN_BG
 import com.app.sampleapp.stash.utils.Constants.SCREEN_NUMBER
@@ -25,9 +26,12 @@ private const val ARG_PARAM2 = "param2"
  * Use the [ColorFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ColorFragment : Fragment() {
+class ColorFragment : StashBaseFragment() {
     private var screenColor: String? = null
     private var screenNumber: Int = 0
+
+    private var _binding: FragmentRedBinding? = null
+    private val binding get() = _binding!!
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,10 +42,42 @@ class ColorFragment : Fragment() {
         }
     }
 
-    val viewModel by activityViewModels<StashVM>()
 
-    private var _binding: FragmentRedBinding? = null
-    private val binding get() = _binding!!
+    private fun showMiniViewOnScreen() {
+        binding.tvTitle.text = "I am collapsed $screenColor -----  $screenNumber"
+        binding.btnNext.setOnClickListener(null)
+        binding.btnNext.text="Expand Me"
+        binding.btnNext.setOnClickListener {
+            showMaxView()
+           viewModel.destroyNextScreens(screenNumber+1)
+        }
+    }
+
+    override fun onExpanded() {
+
+    }
+
+    override fun showMiniView() {
+        showMiniViewOnScreen()
+    }
+
+    override fun showMaxView() {
+        binding.tvTitle.text = screenColor
+        binding.btnNext.setOnClickListener(null)
+        binding.btnNext.text="Next Step"
+        binding.btnNext.setOnClickListener {
+            showMiniViewOnScreen()
+            viewModel.expandNextScreen(
+                ScreenDataModel(
+                    screenNumber + 1,
+                    YELLOW_FRAGMENT,
+                    Bundle().apply {
+                        putString(SCREEN_BG, "RED")
+                        putInt(SCREEN_NUMBER, screenNumber + 1)
+                    })
+            )
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,19 +90,10 @@ class ColorFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.tvTitle.text = screenColor
-        binding.btnNext.setOnClickListener {
-            viewModel.expandNextScreen(
-                ScreenDataModel(
-                    screenNumber + 1,
-                    YELLOW_FRAGMENT,
-                    Bundle().apply {
-                        putString(SCREEN_BG, "RED")
-                        putInt(SCREEN_NUMBER, screenNumber + 1)
-                    })
-            )
-        }
+        showMaxView()
+        //viewModel.collapsePreviousScreen(screenNumber - 1)
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
