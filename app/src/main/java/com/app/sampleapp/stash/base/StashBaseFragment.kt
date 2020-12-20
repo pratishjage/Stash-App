@@ -12,12 +12,9 @@ abstract class StashBaseFragment : Fragment() {
 
     val viewModel by activityViewModels<StashVM>()
 
-
-    abstract fun onExpanded()
-
     abstract fun showMiniView()
 
-    abstract fun showMaxView()
+    abstract fun showExtendedView()
 
     var screenPosition: Int = 0
 
@@ -30,28 +27,6 @@ abstract class StashBaseFragment : Fragment() {
     ) {
         viewModel.expandNextScreen(screenDataModel)
         showMiniView()
-    }
-
-    @CallSuper
-    override fun onViewCreated(
-        view: View,
-        savedInstanceState: Bundle?
-    ) {
-        super.onViewCreated(view, savedInstanceState)
-
-
-        listenToMiniState()
-
-        //listenForExceptions()
-    }
-
-    private fun listenToMiniState() {
-        viewModel.collapseState.observe(viewLifecycleOwner, {
-            if (screenPosition == it) {
-                showMiniView()
-            }
-            viewModel.collapseHandled()
-        })
     }
 
 

@@ -10,8 +10,6 @@ class StashVM : ViewModel() {
     protected val _stashState: MutableLiveData<ScreenDataModel> by lazy { MutableLiveData<ScreenDataModel>() }
     val stashState: LiveData<ScreenDataModel> by lazy { _stashState }
 
-    protected val _collapseState: MutableLiveData<Int> by lazy { MutableLiveData<Int>() }
-    val collapseState: LiveData<Int> by lazy { _collapseState }
 
     protected val _destroyState: MutableLiveData<Int> by lazy { MutableLiveData<Int>() }
     val destroyState: LiveData<Int> by lazy { _destroyState }
@@ -24,15 +22,8 @@ class StashVM : ViewModel() {
         _stashState.postValue(screenDataModel)
     }
 
-    fun collapsePreviousScreen(previousScreenPosition: Int) {
-        _collapseState.postValue(previousScreenPosition)
-    }
-
     fun destroyNextScreens(currentScreenPosition: Int) {
         _destroyState.postValue(currentScreenPosition)
     }
 
-    fun collapseHandled() {
-        _collapseState.value = null
-    }
 }

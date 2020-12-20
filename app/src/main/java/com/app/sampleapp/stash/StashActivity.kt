@@ -27,6 +27,7 @@ class StashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityStashBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         viewModel.expandNextScreen(
             ScreenDataModel(
                 0,
@@ -91,7 +92,6 @@ class StashActivity : AppCompatActivity() {
                 currentScreenPosition++;
             }
         })
-        setContentView(binding.root)
     }
 
     private fun toggle(view: View, show: Boolean) {

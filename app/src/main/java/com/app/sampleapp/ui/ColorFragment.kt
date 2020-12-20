@@ -1,20 +1,15 @@
 package com.app.sampleapp.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentFactory
-import androidx.fragment.app.activityViewModels
-import com.app.sampleapp.R
 import com.app.sampleapp.databinding.FragmentRedBinding
 import com.app.sampleapp.stash.base.StashBaseFragment
 import com.app.sampleapp.stash.model.ScreenDataModel
 import com.app.sampleapp.stash.utils.Constants.SCREEN_BG
 import com.app.sampleapp.stash.utils.Constants.SCREEN_NUMBER
 import com.app.sampleapp.stash.utils.FragmentFactory.YELLOW_FRAGMENT
-import com.app.sampleapp.stash.vm.StashVM
 
 class ColorFragment : StashBaseFragment() {
     private var screenColor: String? = null
@@ -38,20 +33,16 @@ class ColorFragment : StashBaseFragment() {
         binding.btnNext.setOnClickListener(null)
         binding.btnNext.text = "Expand Me"
         binding.btnNext.setOnClickListener {
-            showMaxView()
+            showExtendedView()
             viewModel.destroyNextScreens(screenNumber + 1)
         }
-    }
-
-    override fun onExpanded() {
-
     }
 
     override fun showMiniView() {
         showMiniViewOnScreen()
     }
 
-    override fun showMaxView() {
+    override fun showExtendedView() {
         binding.tvTitle.text = screenColor
         binding.btnNext.setOnClickListener(null)
         binding.btnNext.text = "Next Step"
@@ -77,8 +68,7 @@ class ColorFragment : StashBaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        showMaxView()
-        //viewModel.collapsePreviousScreen(screenNumber - 1)
+        showExtendedView()
     }
 
 
