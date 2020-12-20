@@ -1,6 +1,7 @@
 plugins {
   id 'com.android.application'
   id 'kotlin-android'
+  id  'org.jetbrains.kotlin.android.extensions'
 }
 
 android {
@@ -8,6 +9,9 @@ android {
   buildToolsVersion "30.0.1"
   buildFeatures {
     viewBinding true
+  }
+  androidExtensions {
+    experimental = true
   }
   defaultConfig {
     applicationId "com.app.sampleapp"

@@ -5,7 +5,6 @@ import android.view.Gravity
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.transition.Fade
 import androidx.transition.Slide
 import androidx.transition.Transition
 import androidx.transition.TransitionManager
@@ -16,6 +15,8 @@ import com.app.sampleapp.stash.utils.Constants.FRAGMENT_ONE
 import com.app.sampleapp.stash.utils.Constants.FRAGMENT_THREE
 import com.app.sampleapp.stash.utils.Constants.FRAGMENT_TWO
 import com.app.sampleapp.stash.utils.Constants.FRAGMENT_ZERO
+import com.app.sampleapp.stash.utils.Constants.INITIAL_FRAGMENT
+import com.app.sampleapp.stash.utils.Constants.MAXIMUM_STEPS
 import com.app.sampleapp.stash.utils.Constants.SCREEN_BG
 import com.app.sampleapp.stash.utils.Constants.SCREEN_NUMBER
 import com.app.sampleapp.stash.utils.FragmentFactory
@@ -26,22 +27,20 @@ class StashActivity : AppCompatActivity() {
 
     private val viewModel by viewModels<StashVM>()
     private lateinit var binding: ActivityStashBinding
-    private val MAX_SCREENS = 3
+    private var MAX_SCREENS: Int = 3
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityStashBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        MAX_SCREENS = intent.getIntExtra(MAXIMUM_STEPS, 3)
+        val initialScreen = intent.getParcelableExtra<ScreenDataModel>(INITIAL_FRAGMENT)
 
         viewModel.expandNextScreen(
-            ScreenDataModel(
-                FRAGMENT_ZERO,
-                FragmentFactory.RED_FRAGMENT,
-                Bundle().apply {
-                    putString(SCREEN_BG, "RED")
-                    putInt(SCREEN_NUMBER, FRAGMENT_ZERO)
-                })
+            initialScreen
         )
+
+
         viewModel.stashState.observe(this, { screenData ->
             when (screenData.currentScreenPosition) {
                 FRAGMENT_ZERO -> {
