@@ -10,50 +10,24 @@
       android:id="@+id/containerOne"
       android:layout_width="match_parent"
       android:layout_height="match_parent"/>
-<!--  <LinearLayout-->
-<!--      android:id="@+id/main_container"-->
-<!--      android:layout_width="match_parent"-->
-<!--      android:layout_height="match_parent"-->
-<!--      android:orientation="horizontal"-->
-<!--      >-->
-<!--    <Button-->
-<!--        android:id="@+id/expandButton"-->
-<!--        android:layout_width="100dp"-->
-<!--        android:layout_margin="16dp"-->
-<!--        android:text="1"-->
-<!--        android:layout_height="wrap_content"/>-->
-<!--    <Button-->
-<!--        android:id="@+id/expandButton2"-->
-<!--        android:layout_width="100dp"-->
-<!--        android:text="2"-->
-<!--        android:layout_margin="16dp"-->
-<!--        android:layout_height="wrap_content"/>-->
-<!--    <Button-->
-<!--        android:id="@+id/expandButton3"-->
-<!--        android:layout_width="100dp"-->
-<!--        android:text="3"-->
-<!--        android:layout_margin="16dp"-->
-<!--        android:layout_height="wrap_content"/>-->
-<!--  </LinearLayout>-->
   <FrameLayout
       android:id="@+id/container_two"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
+      android:layout_height="700dp"
       android:background="@color/red"
-      android:layout_marginTop="?attr/actionBarSize"
       app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior" />
 
   <FrameLayout
       android:id="@+id/container_three"
       android:layout_width="match_parent"
-      android:layout_height="400dp"
+      android:layout_height="600dp"
       android:background="@color/yellow"
       app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior" />
 
   <FrameLayout
       android:id="@+id/container_four"
       android:layout_width="match_parent"
-      android:layout_height="200dp"
+      android:layout_height="500dp"
       android:background="@color/green"
       app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior" />
 
