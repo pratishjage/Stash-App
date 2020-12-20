@@ -16,17 +16,18 @@ abstract class StashBaseFragment : Fragment() {
 
     abstract fun showExtendedView()
 
-    var screenPosition: Int = 0
+    abstract val screenPosition: Int
 
-    fun setCurrentScreenPosition(position: Int) {
-        screenPosition = position;
-    }
 
     protected fun expandNextScreen(
         screenDataModel: ScreenDataModel
     ) {
         viewModel.expandNextScreen(screenDataModel)
         showMiniView()
+    }
+
+    protected fun destroyNextScreens(){
+        viewModel.destroyNextScreens(screenPosition+1)
     }
 
 

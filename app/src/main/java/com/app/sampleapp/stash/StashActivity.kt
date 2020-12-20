@@ -11,15 +11,13 @@ import androidx.transition.TransitionManager
 import com.app.sampleapp.R
 import com.app.sampleapp.databinding.ActivityStashBinding
 import com.app.sampleapp.stash.model.ScreenDataModel
-import com.app.sampleapp.stash.utils.Constants.FRAGMENT_ONE
-import com.app.sampleapp.stash.utils.Constants.FRAGMENT_THREE
 import com.app.sampleapp.stash.utils.Constants.FRAGMENT_TWO
-import com.app.sampleapp.stash.utils.Constants.FRAGMENT_ZERO
+import com.app.sampleapp.stash.utils.Constants.FRAGMENT_FOUR
+import com.app.sampleapp.stash.utils.Constants.FRAGMENT_THREE
+import com.app.sampleapp.stash.utils.Constants.FRAGMENT_ONE
 import com.app.sampleapp.stash.utils.Constants.INITIAL_FRAGMENT
 import com.app.sampleapp.stash.utils.Constants.MAXIMUM_STEPS
-import com.app.sampleapp.stash.utils.Constants.SCREEN_BG
-import com.app.sampleapp.stash.utils.Constants.SCREEN_NUMBER
-import com.app.sampleapp.stash.utils.FragmentFactory
+import com.app.sampleapp.utils.FragmentFactory
 import com.app.sampleapp.stash.vm.StashVM
 
 
@@ -27,13 +25,13 @@ class StashActivity : AppCompatActivity() {
 
     private val viewModel by viewModels<StashVM>()
     private lateinit var binding: ActivityStashBinding
-    private var MAX_SCREENS: Int = 3
+    private var MAX_SCREENS: Int = 4
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityStashBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        MAX_SCREENS = intent.getIntExtra(MAXIMUM_STEPS, 3)
+        MAX_SCREENS = intent.getIntExtra(MAXIMUM_STEPS, 4)
         val initialScreen = intent.getParcelableExtra<ScreenDataModel>(INITIAL_FRAGMENT)
 
         viewModel.expandNextScreen(
@@ -43,27 +41,30 @@ class StashActivity : AppCompatActivity() {
 
         viewModel.stashState.observe(this, { screenData ->
             when (screenData.currentScreenPosition) {
-                FRAGMENT_ZERO -> {
+                MAX_SCREENS + 1 -> {
+                    finish()
+                }
+                FRAGMENT_ONE -> {
                     supportFragmentManager.beginTransaction().replace(
                         R.id.containerOne,
                         FragmentFactory.getFragment(screenData.nextScreenTag, screenData.bundle)
                     ).commit()
                 }
-                FRAGMENT_ONE -> {
+                FRAGMENT_TWO -> {
                     supportFragmentManager.beginTransaction().replace(
                         R.id.container_two,
                         FragmentFactory.getFragment(screenData.nextScreenTag, screenData.bundle)
                     ).commit()
                     toggle(binding.containerTwo, true)
                 }
-                FRAGMENT_TWO -> {
+                FRAGMENT_THREE -> {
                     supportFragmentManager.beginTransaction().replace(
                         R.id.container_three,
                         FragmentFactory.getFragment(screenData.nextScreenTag, screenData.bundle)
                     ).commit()
                     toggle(binding.containerThree, true)
                 }
-                FRAGMENT_THREE -> {
+                FRAGMENT_FOUR -> {
                     supportFragmentManager.beginTransaction().replace(
                         R.id.container_four,
                         FragmentFactory.getFragment(screenData.nextScreenTag, screenData.bundle)
@@ -81,13 +82,13 @@ class StashActivity : AppCompatActivity() {
             var currentScreenPosition = screenPosition
             while (currentScreenPosition <= MAX_SCREENS) {
                 when (currentScreenPosition) {
-                    FRAGMENT_ONE -> {
+                    FRAGMENT_TWO -> {
                         toggle(binding.containerTwo, false)
                     }
-                    FRAGMENT_TWO -> {
+                    FRAGMENT_THREE -> {
                         toggle(binding.containerThree, false)
                     }
-                    FRAGMENT_THREE -> {
+                    FRAGMENT_FOUR -> {
                         toggle(binding.containerFour, false)
 
                     }

@@ -1,4 +1,4 @@
-package com.app.sampleapp.stash.utils
+package com.app.sampleapp.utils
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
