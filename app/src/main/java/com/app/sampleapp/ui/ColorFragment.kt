@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.app.sampleapp.databinding.FragmentRedBinding
 import com.app.sampleapp.stash.base.StashBaseFragment
 import com.app.sampleapp.stash.model.ScreenDataModel
+import com.app.sampleapp.stash.model.StashDataModel
 import com.app.sampleapp.stash.utils.Constants.SCREEN_BG
 import com.app.sampleapp.stash.utils.Constants.SCREEN_NUMBER
 import com.app.sampleapp.utils.FragmentFactory.YELLOW_FRAGMENT
@@ -67,7 +68,12 @@ class ColorFragment : StashBaseFragment() {
         binding.btnNext.setOnClickListener(null)
         binding.btnNext.text = "Next Step"
         binding.btnNext.setOnClickListener {
-            expandNextScreen(
+
+            expandNextScreen(ColorFragment.newInstance(Bundle().apply {
+                putString(SCREEN_BG, "RED")
+                putInt(SCREEN_NUMBER, screenNumber + 1)
+            }))
+            /*expandNextScreen(
                 ScreenDataModel(
                     screenNumber + 1,
                     YELLOW_FRAGMENT,
@@ -75,7 +81,7 @@ class ColorFragment : StashBaseFragment() {
                         putString(SCREEN_BG, "RED")
                         putInt(SCREEN_NUMBER, screenNumber + 1)
                     })
-            )
+            )*/
         }
     }
 

@@ -6,7 +6,6 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class ScreenDataModel(
-    val currentScreenPosition: Int,
     val fragmentName: String,
     val bundle: Bundle?
 ) : Parcelable

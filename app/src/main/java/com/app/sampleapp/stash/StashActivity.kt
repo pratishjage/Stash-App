@@ -14,14 +14,11 @@ import com.app.sampleapp.databinding.ActivityStashBinding
 import com.app.sampleapp.stash.base.StashBaseFragment
 import com.app.sampleapp.stash.model.ScreenDataModel
 import com.app.sampleapp.stash.utils.Constants.FRAGMENT_FOUR
-import com.app.sampleapp.stash.utils.Constants.FRAGMENT_ONE
 import com.app.sampleapp.stash.utils.Constants.FRAGMENT_THREE
 import com.app.sampleapp.stash.utils.Constants.FRAGMENT_TWO
 import com.app.sampleapp.stash.utils.Constants.INITIAL_FRAGMENT
-import com.app.sampleapp.stash.utils.Constants.INITIAL_FRAGMENT_NAME
 import com.app.sampleapp.stash.utils.Constants.MAXIMUM_STEPS
 import com.app.sampleapp.stash.vm.StashVM
-import com.app.sampleapp.utils.FragmentFactory
 import java.lang.Exception
 import java.lang.reflect.Method
 import kotlin.reflect.KClass
@@ -31,76 +28,56 @@ class StashActivity : AppCompatActivity() {
 
     private val viewModel by viewModels<StashVM>()
     private lateinit var binding: ActivityStashBinding
-    private var MAXSCREENS: Int = 4
-    private var initalFragmentName: String = ""
-    private var initialFragment: StashBaseFragment? = null
+    private var maxScreens: Int = 4
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityStashBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        MAXSCREENS = intent.getIntExtra(MAXIMUM_STEPS, 4)
-        initalFragmentName = intent.getStringExtra(INITIAL_FRAGMENT_NAME)
+
+        maxScreens = intent.getIntExtra(MAXIMUM_STEPS, 4)
 
         val initialScreen = intent.getParcelableExtra<ScreenDataModel>(INITIAL_FRAGMENT)
+
         initialScreen?.let {
             if (initialScreen.bundle != null && !initialScreen.fragmentName.isNullOrEmpty()) {
-                initialFragment  = checkIfClassIsValid(
+                val initialFragment = checkIfClassIsValid(
                     initialScreen.fragmentName,
                     initialScreen.bundle
                 )
 
-                if (initialFragment == null) {
-                    finish()
-                } else {
-                    viewModel.expandNextScreen(
-                        initialScreen
-                    )
+                initialFragment?.let {
+                    supportFragmentManager.beginTransaction().replace(
+                        R.id.containerOne,
+                        it
+                    ).commit()
                 }
-
             }
         }
 
-
-        /*val initialFragment = initialScreen.bundle?.let {
-            checkIfClassIsValid(
-                initalFragmentName,
-                it
-            )
-        }*/
-
-
-
         viewModel.stashState.observe(this, { screenData ->
             when (screenData.currentScreenPosition) {
-                MAXSCREENS + 1 -> {
+                maxScreens + 1 -> {
                     finish()
-                }
-                FRAGMENT_ONE -> {
-                    initialFragment?.let {
-                        supportFragmentManager.beginTransaction().replace(
-                            R.id.containerOne,
-                            it
-                        ).commit()
-                    }
                 }
                 FRAGMENT_TWO -> {
                     supportFragmentManager.beginTransaction().replace(
                         R.id.container_two,
-                        FragmentFactory.getFragment(screenData.fragmentName, screenData.bundle)
+                        screenData.fragment
                     ).commit()
                     toggle(binding.containerTwo, true)
                 }
                 FRAGMENT_THREE -> {
                     supportFragmentManager.beginTransaction().replace(
                         R.id.container_three,
-                        FragmentFactory.getFragment(screenData.fragmentName, screenData.bundle)
+                        screenData.fragment
                     ).commit()
                     toggle(binding.containerThree, true)
                 }
                 FRAGMENT_FOUR -> {
                     supportFragmentManager.beginTransaction().replace(
                         R.id.container_four,
-                        FragmentFactory.getFragment(screenData.fragmentName, screenData.bundle)
+                        screenData.fragment
                     ).commit()
                     toggle(binding.containerFour, true)
                 }
@@ -113,7 +90,7 @@ class StashActivity : AppCompatActivity() {
 
         viewModel.destroyState.observe(this, { screenPosition ->
             var currentScreenPosition = screenPosition
-            while (currentScreenPosition <= MAXSCREENS) {
+            while (currentScreenPosition <= maxScreens) {
                 when (currentScreenPosition) {
                     FRAGMENT_TWO -> {
                         toggle(binding.containerTwo, false)
@@ -150,25 +127,29 @@ class StashActivity : AppCompatActivity() {
 
         val myClass = clazz.java
 
-       // if (myClass is StashBaseFragment) {
-            var method: Method? = null
-            return try {
-                method = myClass.getDeclaredMethod(
-                    "newInstance",
-                    Bundle::class.java
-                )
-                val result: StashBaseFragment = method.invoke(null, bundle) as StashBaseFragment
-                result
-            } catch (e: Exception) {
-                Toast.makeText(this, "Class Must Have Method named newInstance and Extend StashBaseFragment", Toast.LENGTH_SHORT)
-                    .show()
-                null
-            }
+        // if (myClass is StashBaseFragment) {
+        var method: Method? = null
+        return try {
+            method = myClass.getDeclaredMethod(
+                "newInstance",
+                Bundle::class.java
+            )
+            val result: StashBaseFragment = method.invoke(null, bundle) as StashBaseFragment
+            result
+        } catch (e: Exception) {
+            Toast.makeText(
+                this,
+                "Class Must Have Method named newInstance and Extend StashBaseFragment",
+                Toast.LENGTH_SHORT
+            )
+                .show()
+            null
+        }
 
-     /*   } else {
-            Toast.makeText(this, "Class Must Extend StashBaseFragment", Toast.LENGTH_SHORT).show()
-            return null
-        }*/
+        /*   } else {
+               Toast.makeText(this, "Class Must Extend StashBaseFragment", Toast.LENGTH_SHORT).show()
+               return null
+           }*/
 /*
         if (clazz is StashBaseFragment) {
             return clazz.newInstance(bundle) as StashBaseFragment

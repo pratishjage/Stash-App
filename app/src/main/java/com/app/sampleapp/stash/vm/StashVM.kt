@@ -6,11 +6,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ReportFragment
 import androidx.lifecycle.ViewModel
 import com.app.sampleapp.stash.model.ScreenDataModel
+import com.app.sampleapp.stash.model.StashDataModel
 
 class StashVM : ViewModel() {
 
-    protected val _stashState: MutableLiveData<ScreenDataModel> by lazy { MutableLiveData<ScreenDataModel>() }
-    val stashState: LiveData<ScreenDataModel> by lazy { _stashState }
+    protected val _stashState: MutableLiveData<StashDataModel> by lazy { MutableLiveData<StashDataModel>() }
+    val stashState: LiveData<StashDataModel> by lazy { _stashState }
 
 
     protected val _destroyState: MutableLiveData<Int> by lazy { MutableLiveData<Int>() }
@@ -20,12 +21,16 @@ class StashVM : ViewModel() {
 
     }
 
-    fun expandNextScreen(screenDataModel: ScreenDataModel) {
+    /*fun expandNextScreen(screenDataModel: ScreenDataModel) {
         _stashState.postValue(screenDataModel)
-    }
+    }*/
 
     fun destroyNextScreens(currentScreenPosition: Int) {
         _destroyState.postValue(currentScreenPosition)
+    }
+
+    fun expandNextScreen(stashDataModel: StashDataModel) {
+        _stashState.postValue(stashDataModel)
     }
 
 }
