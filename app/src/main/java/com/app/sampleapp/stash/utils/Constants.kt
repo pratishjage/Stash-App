@@ -10,5 +10,6 @@ object Constants {
     const val FRAGMENT_FOUR = 4
     const val INITIAL_FRAGMENT = "initial_fragment"
     const val MAXIMUM_STEPS = "maximum_steps"
+    const val INITIAL_FRAGMENT_NAME = "initial_fragment_name"
 
 }

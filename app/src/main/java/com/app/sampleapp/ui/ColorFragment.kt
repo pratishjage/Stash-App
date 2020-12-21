@@ -79,7 +79,7 @@ class ColorFragment : StashBaseFragment() {
         }
     }
 
-    override var screenPosition: Int
+    override var currentScreenPosition: Int
         get() = screenNumber
         set(value) {}
 

@@ -1,8 +1,5 @@
 package com.app.sampleapp.stash.base
 
-import android.os.Bundle
-import android.view.View
-import androidx.annotation.CallSuper
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.app.sampleapp.stash.model.ScreenDataModel
@@ -16,7 +13,7 @@ abstract class StashBaseFragment : Fragment() {
 
     abstract fun showExtendedView()
 
-    abstract val screenPosition: Int
+    abstract val currentScreenPosition: Int
 
 
     protected fun expandNextScreen(
@@ -27,7 +24,7 @@ abstract class StashBaseFragment : Fragment() {
     }
 
     protected fun destroyNextScreens(){
-        viewModel.destroyNextScreens(screenPosition+1)
+        viewModel.destroyNextScreens(currentScreenPosition+1)
     }
 
 
