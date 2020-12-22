@@ -1,4 +1,4 @@
-package com.app.sampleapp.ui
+package com.app.sampleapp.example.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import com.app.sampleapp.databinding.FragmentRedBinding
 import com.app.sampleapp.stash.base.StashBaseFragment
 import com.app.sampleapp.stash.utils.Constants.SCREEN_BG
 import com.app.sampleapp.stash.utils.Constants.SCREEN_NUMBER
-import com.app.sampleapp.utils.AppUtils
+import com.app.sampleapp.example.utils.AppUtils
 
 class ColorFragment : StashBaseFragment() {
     private var screenColor: String? = null

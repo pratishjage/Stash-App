@@ -1,18 +1,20 @@
-package com.app.sampleapp
+package com.app.sampleapp.example
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import com.app.sampleapp.databinding.ActivityMainBinding
 import com.app.sampleapp.stash.StashBuilder
 import com.app.sampleapp.stash.utils.Constants.FRAGMENT_ONE
 import com.app.sampleapp.stash.utils.Constants.SCREEN_BG
 import com.app.sampleapp.stash.utils.Constants.SCREEN_NUMBER
-import com.app.sampleapp.ui.ColorFragment
+import com.app.sampleapp.example.ui.ColorFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private val TAG = "MainActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,9 +42,9 @@ class MainActivity : AppCompatActivity() {
         when (requestCode) {
             5 -> {
                 if (resultCode == RESULT_OK) {
-                    Toast.makeText(this, "RESULT OK", Toast.LENGTH_SHORT).show()
+                    Log.d(TAG, "RESULT OK")
                 } else if (resultCode == RESULT_CANCELED) {
-                    Toast.makeText(this, "RESULT CANCELED", Toast.LENGTH_SHORT).show()
+                    Log.d(TAG, "RESULT CANCELED")
                 }
             }
         }

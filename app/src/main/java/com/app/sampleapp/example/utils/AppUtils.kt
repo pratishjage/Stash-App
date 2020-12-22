@@ -1,4 +1,4 @@
-package com.app.sampleapp.utils
+package com.app.sampleapp.example.utils
 
 import android.graphics.Color
 import java.util.*
