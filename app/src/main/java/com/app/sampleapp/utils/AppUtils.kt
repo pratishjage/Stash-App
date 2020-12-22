@@ -1,7 +1,6 @@
 package com.app.sampleapp.utils
 
 import android.graphics.Color
-import android.view.View
 import java.util.*
 
 object AppUtils {

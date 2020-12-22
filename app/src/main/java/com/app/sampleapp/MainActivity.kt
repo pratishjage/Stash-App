@@ -5,16 +5,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.app.sampleapp.databinding.ActivityMainBinding
-import com.app.sampleapp.stash.StashActivity
 import com.app.sampleapp.stash.StashBuilder
-import com.app.sampleapp.stash.model.ScreenDataModel
 import com.app.sampleapp.stash.utils.Constants.FRAGMENT_ONE
-import com.app.sampleapp.stash.utils.Constants.INITIAL_FRAGMENT
-import com.app.sampleapp.stash.utils.Constants.MAXIMUM_STEPS
 import com.app.sampleapp.stash.utils.Constants.SCREEN_BG
 import com.app.sampleapp.stash.utils.Constants.SCREEN_NUMBER
 import com.app.sampleapp.ui.ColorFragment
-import com.app.sampleapp.ui.StepOneFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
