@@ -38,3 +38,16 @@ class StepOneFragment : StashBaseFragment() {
         get() = 0
 }
 ```
+ Add Next Screens
+
+```sh
+    expandNextScreen(ColorFragment.newInstance(Bundle().apply {
+                putString(SCREEN_BG, "RED")
+                putInt(SCREEN_NUMBER, screenNumber + 1)
+            }))
+```
+ To Expand current screen and destory next Screens
+```sh
+     destroyNextScreens()
+```
+
