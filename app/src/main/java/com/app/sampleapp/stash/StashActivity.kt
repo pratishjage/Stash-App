@@ -126,8 +126,7 @@ class StashActivity : AppCompatActivity() {
         }
 
         val myClass = clazz.java
-
-        // if (myClass is StashBaseFragment) {
+        
         var method: Method? = null
         return try {
             method = myClass.getDeclaredMethod(
@@ -145,26 +144,5 @@ class StashActivity : AppCompatActivity() {
                 .show()
             null
         }
-
-        /*   } else {
-               Toast.makeText(this, "Class Must Extend StashBaseFragment", Toast.LENGTH_SHORT).show()
-               return null
-           }*/
-/*
-        if (clazz is StashBaseFragment) {
-            return clazz.newInstance(bundle) as StashBaseFragment
-        } else {
-            throw ClassNotFoundException()
-        }
-
-        val temp = Class.forName(className).kotlin
-
-        // val myClass= temp.java
-        val method: Method = myClass.getDeclaredMethod(
-            "newInstance",
-            Bundle::class.java
-        )
-        val result: StashBaseFragment = method.invoke(null, bundle) as StashBaseFragment
-        return result*/
     }
 }

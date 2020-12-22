@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.app.sampleapp.databinding.ActivityMainBinding
 import com.app.sampleapp.stash.StashActivity
+import com.app.sampleapp.stash.StashBuilder
 import com.app.sampleapp.stash.model.ScreenDataModel
 import com.app.sampleapp.stash.utils.Constants.FRAGMENT_ONE
 import com.app.sampleapp.stash.utils.Constants.INITIAL_FRAGMENT
@@ -23,18 +24,31 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.btnStartStash.setOnClickListener {
-            val intent = Intent(this, StashActivity::class.java)
+            /*val intent = Intent(this, StashActivity::class.java)
             intent.putExtra(MAXIMUM_STEPS, 4)
             intent.putExtra(
                 INITIAL_FRAGMENT,
-                ColorFragment.javaClass.canonicalName?.removeSuffix(".Companion")?.let { className ->
-                    ScreenDataModel(className, Bundle().apply {
+                ColorFragment.javaClass.canonicalName?.removeSuffix(".Companion")
+                    ?.let { className ->
+                        ScreenDataModel(className, Bundle().apply {
+                            putString(SCREEN_BG, "WHITE")
+                            putInt(SCREEN_NUMBER, FRAGMENT_ONE)
+                        })
+                    }
+            )
+            startActivity(intent)
+*/
+            StepOneFragment::class.qualifiedName?.let { it1 ->
+                val build = StashBuilder.builder.setMaximumSteps(4)
+                    .setInitialFragmentName(it1)
+                    .setInitialFragmentBundle(Bundle().apply {
                         putString(SCREEN_BG, "WHITE")
                         putInt(SCREEN_NUMBER, FRAGMENT_ONE)
                     })
-                }
-            )
-            startActivity(intent)
+                    .build(this)
+
+                startActivity(build)
+            }
         }
     }
 }
