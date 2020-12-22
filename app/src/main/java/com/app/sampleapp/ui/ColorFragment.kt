@@ -1,6 +1,5 @@
 package com.app.sampleapp.ui
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +9,6 @@ import com.app.sampleapp.stash.base.StashBaseFragment
 import com.app.sampleapp.stash.utils.Constants.SCREEN_BG
 import com.app.sampleapp.stash.utils.Constants.SCREEN_NUMBER
 import com.app.sampleapp.utils.AppUtils
-import java.util.*
 
 class ColorFragment : StashBaseFragment() {
     private var screenColor: String? = null

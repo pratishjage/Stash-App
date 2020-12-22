@@ -58,6 +58,7 @@ class StashActivity : AppCompatActivity() {
         viewModel.stashState.observe(this, { screenData ->
             when (screenData.currentScreenPosition) {
                 maxScreens + 1 -> {
+                    setResult(RESULT_OK)
                     finish()
                 }
                 FRAGMENT_TWO -> {
@@ -82,7 +83,7 @@ class StashActivity : AppCompatActivity() {
                     toggle(binding.containerFour, true)
                 }
                 else -> {
-                    //return result from here
+                    setResult(RESULT_OK)
                     finish()
                 }
             }
@@ -110,8 +111,9 @@ class StashActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         if (viewModel.isLocalStackEmpty()) {
+            setResult(RESULT_CANCELED)
             super.onBackPressed()
-        }else{
+        } else {
             when (viewModel.getLocalStackCount()) {
                 FRAGMENT_TWO -> {
                     toggle(binding.containerTwo, false)
