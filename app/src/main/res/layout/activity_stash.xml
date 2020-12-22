@@ -16,23 +16,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="100dp"
-        android:visibility="gone"
-        android:background="@color/red" />
+        android:visibility="gone" />
 
     <FrameLayout
         android:id="@+id/container_three"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="200dp"
-        android:visibility="gone"
-        android:background="@color/yellow" />
+        android:visibility="gone" />
 
     <FrameLayout
         android:id="@+id/container_four"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="300dp"
-        android:visibility="gone"
-        android:background="@color/green" />
+        android:visibility="gone" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

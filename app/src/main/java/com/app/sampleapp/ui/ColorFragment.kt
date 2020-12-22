@@ -1,16 +1,16 @@
 package com.app.sampleapp.ui
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.app.sampleapp.databinding.FragmentRedBinding
 import com.app.sampleapp.stash.base.StashBaseFragment
-import com.app.sampleapp.stash.model.ScreenDataModel
-import com.app.sampleapp.stash.model.StashDataModel
 import com.app.sampleapp.stash.utils.Constants.SCREEN_BG
 import com.app.sampleapp.stash.utils.Constants.SCREEN_NUMBER
-import com.app.sampleapp.utils.FragmentFactory.YELLOW_FRAGMENT
+import com.app.sampleapp.utils.AppUtils
+import java.util.*
 
 class ColorFragment : StashBaseFragment() {
     private var screenColor: String? = null
@@ -37,6 +37,14 @@ class ColorFragment : StashBaseFragment() {
         return view
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val randomColor = AppUtils.getRandomColor()
+        binding.rlMini.setBackgroundColor(randomColor)
+        binding.rlMax.setBackgroundColor(randomColor)
+
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -44,10 +52,10 @@ class ColorFragment : StashBaseFragment() {
 
 
     private fun showMiniViewOnScreen() {
-        binding.tvTitle.text = "I am collapsed $screenColor -----  $screenNumber"
-        binding.btnNext.setOnClickListener(null)
-        binding.btnNext.text = "Expand Me"
-        binding.btnNext.setOnClickListener {
+        binding.rlMax.visibility = View.GONE
+        binding.rlMini.visibility = View.VISIBLE
+        binding.tvTitleMini.text = "COLLAPSED VIEW"
+        binding.rlMini.setOnClickListener {
             destroyNextScreens()
         }
     }
@@ -57,24 +65,15 @@ class ColorFragment : StashBaseFragment() {
     }
 
     override fun showExtendedView() {
-        binding.tvTitle.text = screenColor
-        binding.btnNext.setOnClickListener(null)
+        binding.rlMax.visibility = View.VISIBLE
+        binding.rlMini.visibility = View.GONE
+        binding.tvTitle.text = "EXPANDED VIEW"
         binding.btnNext.text = "Next Step"
         binding.btnNext.setOnClickListener {
-
             expandNextScreen(ColorFragment.newInstance(Bundle().apply {
                 putString(SCREEN_BG, "RED")
                 putInt(SCREEN_NUMBER, screenNumber + 1)
             }))
-            /*expandNextScreen(
-                ScreenDataModel(
-                    screenNumber + 1,
-                    YELLOW_FRAGMENT,
-                    Bundle().apply {
-                        putString(SCREEN_BG, "RED")
-                        putInt(SCREEN_NUMBER, screenNumber + 1)
-                    })
-            )*/
         }
     }
 
@@ -89,5 +88,6 @@ class ColorFragment : StashBaseFragment() {
                 arguments = bundle
             }
     }
+
 
 }
