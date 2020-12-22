@@ -37,12 +37,6 @@ class ColorFragment : StashBaseFragment() {
         return view
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        showExtendedView()
-    }
-
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -54,7 +48,6 @@ class ColorFragment : StashBaseFragment() {
         binding.btnNext.setOnClickListener(null)
         binding.btnNext.text = "Expand Me"
         binding.btnNext.setOnClickListener {
-            showExtendedView()
             destroyNextScreens()
         }
     }

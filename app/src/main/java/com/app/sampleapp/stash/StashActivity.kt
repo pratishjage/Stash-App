@@ -107,6 +107,29 @@ class StashActivity : AppCompatActivity() {
         })
     }
 
+
+    override fun onBackPressed() {
+        if (viewModel.isLocalStackEmpty()) {
+            super.onBackPressed()
+        }else{
+            when (viewModel.getLocalStackCount()) {
+                FRAGMENT_TWO -> {
+                    toggle(binding.containerTwo, false)
+                    viewModel.removeFromLocalStack()
+                }
+                FRAGMENT_THREE -> {
+                    toggle(binding.containerThree, false)
+                    viewModel.removeFromLocalStack()
+                }
+                FRAGMENT_FOUR -> {
+                    toggle(binding.containerFour, false)
+                    viewModel.removeFromLocalStack()
+                }
+            }
+        }
+
+    }
+
     private fun toggle(view: View, show: Boolean) {
         val transition: Transition = Slide(Gravity.BOTTOM)
         transition.duration = 300
@@ -126,7 +149,7 @@ class StashActivity : AppCompatActivity() {
         }
 
         val myClass = clazz.java
-        
+
         var method: Method? = null
         return try {
             method = myClass.getDeclaredMethod(

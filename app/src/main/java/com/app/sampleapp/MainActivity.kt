@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
             )
             startActivity(intent)
 */
-            StepOneFragment::class.qualifiedName?.let { it1 ->
+            ColorFragment::class.qualifiedName?.let { it1 ->
                 val build = StashBuilder.builder.setMaximumSteps(4)
                     .setInitialFragmentName(it1)
                     .setInitialFragmentBundle(Bundle().apply {
