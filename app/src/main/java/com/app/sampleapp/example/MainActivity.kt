@@ -4,9 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import com.app.sampleapp.databinding.ActivityMainBinding
-import com.app.sampleapp.stash.StashBuilder
+import com.app.sampleapp.stash.utils.StashBuilder
 import com.app.sampleapp.stash.utils.Constants.FRAGMENT_ONE
 import com.app.sampleapp.stash.utils.Constants.SCREEN_BG
 import com.app.sampleapp.stash.utils.Constants.SCREEN_NUMBER

@@ -1,8 +1,9 @@
-package com.app.sampleapp.stash
+package com.app.sampleapp.stash.utils
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import com.app.sampleapp.stash.StashActivity
 import com.app.sampleapp.stash.model.ScreenDataModel
 import com.app.sampleapp.stash.utils.Constants.INITIAL_FRAGMENT
 import com.app.sampleapp.stash.utils.Constants.MAXIMUM_STEPS
