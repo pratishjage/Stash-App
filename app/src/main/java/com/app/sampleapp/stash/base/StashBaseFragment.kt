@@ -3,10 +3,8 @@ package com.app.sampleapp.stash.base
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.CallSuper
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.app.sampleapp.stash.model.ScreenDataModel
 import com.app.sampleapp.stash.model.StashDataModel
 import com.app.sampleapp.stash.vm.StashVM
 
@@ -58,12 +56,12 @@ abstract class StashBaseFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         extendCurrentScreen()
-        listenToLoadingState()
+        listenToBackStack()
 
     }
 
     @CallSuper
-    private fun listenToLoadingState() {
+    private fun listenToBackStack() {
         viewModel.localFragmentStack.observe(viewLifecycleOwner, {
             if (it == currentScreenPosition) {
                 extendCurrentScreen()
