@@ -2,6 +2,8 @@
 
 Stash is a Android Library for Animated steps.
 
+![](app_intro.gif)
+
 # Tech Stack
 - Livedata
 - Fragment
